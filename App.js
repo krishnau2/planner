@@ -25,7 +25,7 @@ export default class App extends React.Component {
           sections={sectionData}
           renderItem={({item}) =>
               <View style={styles.itemContainer}>
-                <Text style={styles.item}>{item.title}</Text>
+                <Text style={styles.itemTitle}>{item.title}</Text>
                 <Text style={styles.itemDate}>{item.date}</Text>
               </View>}
           renderSectionHeader={({section}) =>
@@ -264,12 +264,10 @@ const styles = StyleSheet.create({
   logoContainer: {
     alignItems: 'center',
     justifyContent: 'center',
-    // backgroundColor: '#76a5f0',    
     height: 40
-    
   },
   logo: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: 'bold',
     color: '#ef586b',
   },
@@ -279,31 +277,34 @@ const styles = StyleSheet.create({
     paddingRight: 10,
     paddingBottom: 5,
     marginBottom: 5,
-    fontSize: 14,
+    fontSize: 16,
     fontWeight: 'bold',
     color: '#ef586b',
-    // backgroundColor: '#fef0c2',
     alignItems: 'center'
-  },
-  item: {
-    padding: 10,
-    fontSize: 12,    
-    flex: 3,    
-  },
-  itemDate: {
-    fontSize: 12,
-    padding: 10,
-    flex: 1,
   },
   itemContainer: {
     flexDirection: 'row',    
     justifyContent: 'space-between',
-    // backgroundColor: '#F2F1EF',    
-    // backgroundColor: '#EEEEEE',
     minHeight: 30,
     marginBottom: 5,
     borderBottomWidth :1,
-    borderBottomColor: '#f1f2f3',    
+    borderBottomColor: '#f1f2f3',
+  },
+  itemTitle: {
+    marginLeft: 10,
+    marginTop: 10,
+    marginBottom: 10,
+    fontSize: 13,
+    flex: 3,
+  },
+  itemDate: {
+    fontSize: 13,
+    marginTop: 10,
+    marginBottom: 10,
+    marginLeft: 5,
+    marginRight: 10,
+    flex: 1.02,
+    textAlign: 'right'
   },
   buttonContainer: {
     backgroundColor: '#ef586b',
@@ -311,8 +312,9 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   buttonText: {
-      textAlign: 'center',
-      color: '#FFF',
-      fontWeight: '700'
+    fontSize: 18,
+    textAlign: 'center',
+    color: '#FFF',
+    fontWeight: '700'
   }
 });

@@ -26,7 +26,7 @@ export default class App extends React.Component {
           renderItem={({item}) =>
               <View style={styles.itemContainer}>
                 <Text style={styles.itemTitle}>{item.title}</Text>
-                <Text style={styles.itemDate}>{item.date}</Text>
+                <Text style={styles.itemDate}>{this.getFormatedDate(item.date)}</Text>
               </View>}
           renderSectionHeader={({section}) =>
               <Text style={styles.sectionHeader}>{section.month}</Text>}
@@ -39,16 +39,21 @@ export default class App extends React.Component {
     );
   }
 
+  getFormatedDate(date) {
+    let dateObject = new Date(date);
+    return dateObject.toString().split(' ')[2] + " - " +dateObject.toString().split(' ')[0];
+  }
+
   getSectionData() {
     let data = [
       {
-        month: "july-2018",
+        month: "July-2018",
         data: [
             {
               key: 1,
               title: "TVM Visit",
               description: "",
-              date: "05-07-2018",
+              date: "2018-07-05",
               repeats: true,
               repeatEvery: 2,
               notification: true,
@@ -59,7 +64,7 @@ export default class App extends React.Component {
               key: 2,
               title: "Purchase BIKE",
               description: "",
-              date: "17-07-2018",
+              date: "2018-07-17",
               repeats: true,
               repeatEvery: 2,
               notification: true,
@@ -69,13 +74,13 @@ export default class App extends React.Component {
         ],
       },
       {
-        month: "august-2018",
+        month: "August-2018",
         data: [
             {
               key: 3,
               title: "Renew Car Pollution certificate this is a test string to check the width",
               description: "",
-              date: "03-08-2018",
+              date: "2018-08-03",
               repeats: true,
               repeatEvery: 2,
               notification: true,
@@ -86,7 +91,7 @@ export default class App extends React.Component {
               key: 4,
               title: "Naha's wedding",
               description: "",
-              date: "05-08-2018",
+              date: "2018-08-05",
               repeats: true,
               repeatEvery: 2,
               notification: true,
@@ -96,13 +101,13 @@ export default class App extends React.Component {
         ]
       },
       {
-        month: "september-2018",
+        month: "September-2018",
         data: [
             {
               key: 5,
               title: "Lechu's B'day",
               description: "",
-              date: "19-09-2018",
+              date: "2018-09-19",
               repeats: true,
               repeatEvery: 2,
               notification: true,
@@ -114,136 +119,136 @@ export default class App extends React.Component {
       {
         month: "October-2018",
         data: [
-            {
-              key: 1,
-              title: "TVM Visit",
-              description: "",
-              date: "05-07-2018",
-              repeats: true,
-              repeatEvery: 2,
-              notification: true,
-              notifyBefore: 2,
-              notifyBeforeType: "hours"
-            },
-            {
-              key: 2,
-              title: "Purchase BIKE",
-              description: "",
-              date: "17-07-2018",
-              repeats: true,
-              repeatEvery: 2,
-              notification: true,
-              notifyBefore: 2,
-              notifyBeforeType: "hours"
-            }
+          {
+            key: 1,
+            title: "TVM Visit",
+            description: "",
+            date: "2018-07-05",
+            repeats: true,
+            repeatEvery: 2,
+            notification: true,
+            notifyBefore: 2,
+            notifyBeforeType: "hours"
+          },
+          {
+            key: 2,
+            title: "Purchase BIKE",
+            description: "",
+            date: "2018-07-17",
+            repeats: true,
+            repeatEvery: 2,
+            notification: true,
+            notifyBefore: 2,
+            notifyBeforeType: "hours"
+          }
         ],
       },
       {
         month: "November-2018",
         data: [
-            {
-              key: 1,
-              title: "TVM Visit",
-              description: "",
-              date: "05-07-2018",
-              repeats: true,
-              repeatEvery: 2,
-              notification: true,
-              notifyBefore: 2,
-              notifyBeforeType: "hours"
-            },
-            {
-              key: 2,
-              title: "Purchase BIKE",
-              description: "",
-              date: "17-07-2018",
-              repeats: true,
-              repeatEvery: 2,
-              notification: true,
-              notifyBefore: 2,
-              notifyBeforeType: "hours"
-            }
+          {
+            key: 1,
+            title: "TVM Visit",
+            description: "",
+            date: "2018-07-05",
+            repeats: true,
+            repeatEvery: 2,
+            notification: true,
+            notifyBefore: 2,
+            notifyBeforeType: "hours"
+          },
+          {
+            key: 2,
+            title: "Purchase BIKE",
+            description: "",
+            date: "2018-07-17",
+            repeats: true,
+            repeatEvery: 2,
+            notification: true,
+            notifyBefore: 2,
+            notifyBeforeType: "hours"
+          }
         ],
       },
       {
         month: "December-2018",
         data: [
-            {
-              key: 1,
-              title: "TVM Visit",
-              description: "",
-              date: "05-07-2018",
-              repeats: true,
-              repeatEvery: 2,
-              notification: true,
-              notifyBefore: 2,
-              notifyBeforeType: "hours"
-            },
-            {
-              key: 2,
-              title: "Purchase BIKE",
-              description: "",
-              date: "17-07-2018",
-              repeats: true,
-              repeatEvery: 2,
-              notification: true,
-              notifyBefore: 2,
-              notifyBeforeType: "hours"
-            }
+          {
+            key: 1,
+            title: "TVM Visit",
+            description: "",
+            date: "2018-07-05",
+            repeats: true,
+            repeatEvery: 2,
+            notification: true,
+            notifyBefore: 2,
+            notifyBeforeType: "hours"
+          },
+          {
+            key: 2,
+            title: "Purchase BIKE",
+            description: "",
+            date: "2018-07-17",
+            repeats: true,
+            repeatEvery: 2,
+            notification: true,
+            notifyBefore: 2,
+            notifyBeforeType: "hours"
+          }
         ],
       },
       {
         month: "January-2019",
         data: [
-            {
-              key: 1,
-              title: "TVM Visit",
-              description: "",
-              date: "05-07-2018",
-              repeats: true,
-              repeatEvery: 2,
-              notification: true,
-              notifyBefore: 2,
-              notifyBeforeType: "hours"
-            },
-            {
-              key: 2,
-              title: "Purchase BIKE",
-              description: "",
-              date: "17-07-2018",
-              repeats: true,
-              repeatEvery: 2,
-              notification: true,
-              notifyBefore: 2,
-              notifyBeforeType: "hours"
-            }
+          {
+            key: 1,
+            title: "TVM Visit",
+            description: "",
+            date: "2018-07-05",
+            repeats: true,
+            repeatEvery: 2,
+            notification: true,
+            notifyBefore: 2,
+            notifyBeforeType: "hours"
+          },
+          {
+            key: 2,
+            title: "Purchase BIKE",
+            description: "",
+            date: "2018-07-17",
+            repeats: true,
+            repeatEvery: 2,
+            notification: true,
+            notifyBefore: 2,
+            notifyBeforeType: "hours"
+          }
         ],
       },
       {
         month: "February-2018",
         data: [
-            {
-              key: 1,
-              title: "TVM Visit",
-              description: "",
-              date: "05-07-2018",
-              repeats: true,
-              repeatEvery: 2,
-              notification: true,
-              notifyBefore: 2,
-              notifyBeforeType: "hours"
-            },
-            {
-              key: 2,
-              title: "Purchase BIKE",
-              description: "",
-              date: "17-07-2018",
-              repeats: true,
-              repeatEvery: 2,
-              notification: true,
-              notifyBefore: 2,
-              notifyBeforeType: "hours"
-            }
+          {
+            key: 1,
+            title: "TVM Visit",
+            description: "",
+            date: "2018-07-05",
+            repeats: true,
+            repeatEvery: 2,
+            notification: true,
+            notifyBefore: 2,
+            notifyBeforeType: "hours"
+          },
+          {
+            key: 2,
+            title: "Purchase BIKE",
+            description: "",
+            date: "2018-07-17",
+            repeats: true,
+            repeatEvery: 2,
+            notification: true,
+            notifyBefore: 2,
+            notifyBeforeType: "hours"
+          }
         ],
       },
     ];
@@ -267,17 +272,17 @@ const styles = StyleSheet.create({
     height: 40
   },
   logo: {
-    fontSize: 20,
+    fontSize: 22,
     fontWeight: 'bold',
     color: '#ef586b',
   },
   sectionHeader: {
-    paddingTop: 5,
+    paddingTop: 10,
     paddingLeft: 10,
     paddingRight: 10,
     paddingBottom: 5,
     marginBottom: 5,
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: 'bold',
     color: '#ef586b',
     alignItems: 'center'
@@ -285,7 +290,7 @@ const styles = StyleSheet.create({
   itemContainer: {
     flexDirection: 'row',    
     justifyContent: 'space-between',
-    minHeight: 30,
+    minHeight: 35,
     marginBottom: 5,
     borderBottomWidth :1,
     borderBottomColor: '#f1f2f3',
@@ -294,25 +299,25 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     marginTop: 10,
     marginBottom: 10,
-    fontSize: 13,
+    fontSize: 16,
     flex: 3,
   },
   itemDate: {
-    fontSize: 13,
+    fontSize: 16,
     marginTop: 10,
     marginBottom: 10,
     marginLeft: 5,
     marginRight: 10,
-    flex: 1.02,
-    textAlign: 'right'
+    flex: 1,
+    textAlign: 'right',    
   },
   buttonContainer: {
     backgroundColor: '#ef586b',
-    paddingVertical: 15,
-    marginTop: 20,
+    paddingVertical: 15,    
   },
   buttonText: {
     fontSize: 18,
+    fontWeight: 'bold',    
     textAlign: 'center',
     color: '#FFF',
     fontWeight: '700'

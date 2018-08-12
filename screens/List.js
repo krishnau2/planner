@@ -302,11 +302,11 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     backgroundColor: '#ef586b',
-    paddingVertical: 15,    
+    paddingVertical: 10,
   },
   buttonText: {
     fontSize: 18,
-    fontWeight: 'bold',    
+    fontWeight: 'bold',
     textAlign: 'center',
     color: '#FFF',
     fontWeight: '700'

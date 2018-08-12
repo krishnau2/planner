@@ -19,7 +19,7 @@ const AppNavigator = StackNavigator(
     FormScreen: { screen: Form }
   },
   {
-    initialRouteName: 'ListScreen',
+    initialRouteName: 'FormScreen',
     navigationOptions: {      
       headerTintColor: '#ef586b',
       headerTitleStyle: {      

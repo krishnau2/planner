@@ -45,6 +45,7 @@ export default class App extends React.Component {
                                 style={[styles.inputBox, this.state.titleStyle]}
                                 placeholder="Car Insurance"
                                 placeholderTextColor="rgba(128, 128, 128, 0.7)"
+                                underlineColorAndroid='rgba(0,0,0,0)'
                             />
                             <Text style={styles.caption}>Description</Text>
                             <TextInput
@@ -53,6 +54,7 @@ export default class App extends React.Component {
                                 style={[styles.inputBox, this.state.descriptionStyle]}
                                 placeholder="Detaild description"
                                 placeholderTextColor="rgba(128, 128, 128, 0.7)"
+                                underlineColorAndroid='rgba(0,0,0,0)'
                             />
                             <Text style={styles.caption}>Date</Text>
                             <View style={styles.dateContainer}>
@@ -62,7 +64,9 @@ export default class App extends React.Component {
                                     style={[styles.inputBox, styles.inputDD, this.state.ddStyle]}
                                     placeholder="DD"
                                     keyboardType="numeric"
+                                    maxLength = {2}
                                     placeholderTextColor="rgba(128, 128, 128, 0.7)"
+                                    underlineColorAndroid='rgba(0,0,0,0)'
                                 />
                                 <TextInput
                                     onBlur={() => this.onBlur('mm')}
@@ -70,7 +74,9 @@ export default class App extends React.Component {
                                     style={[styles.inputBox, styles.inputMM, this.state.mmStyle]}
                                     placeholder="MM"
                                     keyboardType="numeric"
+                                    maxLength = {2}
                                     placeholderTextColor="rgba(128, 128, 128, 0.7)"
+                                    underlineColorAndroid='rgba(0,0,0,0)'
                                 />
                                 <TextInput
                                     onBlur={() => this.onBlur('yyyy')}
@@ -78,7 +84,9 @@ export default class App extends React.Component {
                                     style={[styles.inputBox, styles.inputYYYY, this.state.yyyyStyle]}
                                     placeholder="YYYY"
                                     keyboardType="numeric"
+                                    maxLength = {4}
                                     placeholderTextColor="rgba(128, 128, 128, 0.7)"
+                                    underlineColorAndroid='rgba(0,0,0,0)'
                                 />
                             </View>
                         </View>

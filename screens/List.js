@@ -16,13 +16,14 @@ export default class List extends React.Component {
 
   constructor(props) {
     super(props);
+    console.log("Props", this.props);
     this.state = {
       sectionData: []
     }
   }
 
   componentDidMount() {
-    this.getAsyncData.call(this).then((data) => {
+    this.getAsyncData.call(this, "2018").then((data) => {
       this.setState({sectionData: data});
     });
   }
@@ -39,7 +40,7 @@ export default class List extends React.Component {
                     <Text style={styles.itemDate}>{this.getFormatedDate(item.date)}</Text>
                   </View>}
               renderSectionHeader={({section}) =>
-                  <Text style={styles.sectionHeader}>{section.month}</Text>}
+                  <Text style={styles.sectionHeader}>{this.getMonthName(section.month)}</Text>}
             />
           </ScrollView>
           <TouchableOpacity style={styles.buttonContainer} onPress={this.navigateToFormPage}>
@@ -53,14 +54,19 @@ export default class List extends React.Component {
     this.props.navigation.navigate('FormScreen');
   }
 
+  getMonthName(month) {
+    let monthsName = ["January","February","March","April","May","June","July", "August","September","October","November","December"];
+    return monthsName[parseInt(month)-1];
+  }
+
   getFormatedDate(date) {
     let dateObject = new Date(date);
     return dateObject.toString().split(' ')[2] + " - " +dateObject.toString().split(' ')[0];
   }
 
-  async getAsyncData () {
+  async getAsyncData (year) {
     try {
-      const result = await AsyncStorage.getItem("2018");
+      const result = await AsyncStorage.getItem(year);
       const item = JSON.parse(result);
       return item;
     } catch (error) {

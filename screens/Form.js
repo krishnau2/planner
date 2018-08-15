@@ -6,7 +6,8 @@ import {
   ScrollView,
   KeyboardAvoidingView,
   TextInput,
-  TouchableOpacity 
+  TouchableOpacity,
+  AsyncStorage
 } from 'react-native';
 
 export default class App extends React.Component {
@@ -110,7 +111,35 @@ export default class App extends React.Component {
     }
 
     saveData = () => {
-        this.props.navigation.navigate('ListScreen');
+        this.getAsyncData.call(this, "2018").then((data) => {
+            let existingData = data;
+            existingData.forEach((item) => {
+                console.log("Item Month", item.month);
+                if(item.month == this.state.dateMM ){
+                    console.log("inside If");
+                    item.data.push({
+                        key: new Date().getTime(),
+                        title: this.state.title,
+                        description: this.state.description,
+                        date: this.state.dateYYYY + "-" + this.state.dateMM + "-" + this.state.dateDD,
+                    })
+                }
+            });
+            console.log("Before Saving", existingData);
+            AsyncStorage.setItem("2018", JSON.stringify(existingData));
+        });
+
+        this.props.navigation.goBack();
+    }
+
+    async getAsyncData (year) {
+        try {
+            const result = await AsyncStorage.getItem(year);
+            const item = JSON.parse(result);
+            return item;
+        } catch (error) {
+            console.log(error)
+        }
     }
 }
 

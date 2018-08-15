@@ -50,7 +50,7 @@ export default class App extends React.Component {
   storeData() {
     let newData = [
       {
-        month: "july",
+        month: "07",
         data: [
           {
             key: 1,
@@ -67,7 +67,7 @@ export default class App extends React.Component {
         ]
       },
       {
-        month: "august",
+        month: "08",
         data: [
           {
             key: 3,
@@ -84,7 +84,7 @@ export default class App extends React.Component {
         ]
       },
       {
-        month: "september",
+        month: "09",
         data: [
             {
               key: 5,
@@ -95,7 +95,11 @@ export default class App extends React.Component {
         ]
       },
       {
-        month: "november",
+          month: "10",
+          data: []
+      },
+      {
+        month: "11",
         data: [
           {
             key: 6,
@@ -112,7 +116,7 @@ export default class App extends React.Component {
         ]
       },
       {
-        month: "December",
+        month: "12",
         data: [
           {
             key: 1,

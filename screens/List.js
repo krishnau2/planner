@@ -16,7 +16,6 @@ export default class List extends React.Component {
 
   constructor(props) {
     super(props);
-    console.log("Props", this.props);
     this.state = {
       sectionData: []
     }
@@ -51,7 +50,15 @@ export default class List extends React.Component {
   }
 
   navigateToFormPage = () => {
-    this.props.navigation.navigate('FormScreen');
+    this.props.navigation.navigate('FormScreen', {
+      onGoBack: () => this.refreshList()
+    });
+  }
+
+  refreshList = () => {
+    this.getAsyncData.call(this, "2018").then((data) => {
+      this.setState({sectionData: data});
+    });
   }
 
   getMonthName(month) {

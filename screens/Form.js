@@ -114,9 +114,7 @@ export default class App extends React.Component {
         this.getAsyncData.call(this, "2018").then((data) => {
             let existingData = data;
             existingData.forEach((item) => {
-                console.log("Item Month", item.month);
                 if(item.month == this.state.dateMM ){
-                    console.log("inside If");
                     item.data.push({
                         key: new Date().getTime(),
                         title: this.state.title,
@@ -125,11 +123,11 @@ export default class App extends React.Component {
                     })
                 }
             });
-            console.log("Before Saving", existingData);
             AsyncStorage.setItem("2018", JSON.stringify(existingData));
+            this.props.navigation.state.params.onGoBack();
+            this.props.navigation.goBack();
         });
 
-        this.props.navigation.goBack();
     }
 
     async getAsyncData (year) {

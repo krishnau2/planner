@@ -35,6 +35,7 @@ const AppNavigator = StackNavigator(
 export default class App extends React.Component {
   constructor(props) {
     super(props);
+    // this.clearData();
     // this.storeData();
   }
 
@@ -45,6 +46,10 @@ export default class App extends React.Component {
         <AppNavigator></AppNavigator>
     </View>
     );
+  }
+
+  clearData() {
+    AsyncStorage.setItem("2018", JSON.stringify([]));
   }
 
   storeData() {

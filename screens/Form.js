@@ -111,18 +111,47 @@ export default class App extends React.Component {
     }
 
     saveData = () => {
+        let newMonth = true;
         this.getAsyncData.call(this, "2018").then((data) => {
             let existingData = data;
-            existingData.forEach((item) => {
-                if(item.month == this.state.dateMM ){
-                    item.data.push({
-                        key: new Date().getTime(),
-                        title: this.state.title,
-                        description: this.state.description,
-                        date: this.state.dateYYYY + "-" + this.state.dateMM + "-" + this.state.dateDD,
+            if(existingData.length === 0){
+                existingData.push({
+                    month: this.state.dateMM,
+                    data: [
+                        {
+                            key: new Date().getTime(),
+                            title: this.state.title,
+                            description: this.state.description,
+                            date: this.state.dateYYYY + "-" + this.state.dateMM + "-" + this.state.dateDD,
+                        }
+                    ]
+                });
+            }else{
+                existingData.forEach((item) => {
+                    if(item.month == this.state.dateMM ){
+                        newMonth = false;
+                        item.data.push({
+                            key: new Date().getTime(),
+                            title: this.state.title,
+                            description: this.state.description,
+                            date: this.state.dateYYYY + "-" + this.state.dateMM + "-" + this.state.dateDD,
+                        })
+                    }
+                });
+                if(newMonth){
+                    existingData.push({
+                        month: this.state.dateMM,
+                        data: [
+                            {
+                                key: new Date().getTime(),
+                                title: this.state.title,
+                                description: this.state.description,
+                                date: this.state.dateYYYY + "-" + this.state.dateMM + "-" + this.state.dateDD,
+                            }
+                        ]
                     })
                 }
-            });
+            }
             AsyncStorage.setItem("2018", JSON.stringify(existingData));
             this.props.navigation.state.params.onGoBack();
             this.props.navigation.goBack();

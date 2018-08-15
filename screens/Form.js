@@ -22,6 +22,11 @@ export default class App extends React.Component {
             ddStyle: styles.textinput_unfocused,
             mmStyle: styles.textinput_unfocused,
             yyyyStyle: styles.textinput_unfocused,
+            title: "",
+            description: "",
+            dateDD: "",
+            dateMM: "",
+            dateYYYY: ""
         };
     }
 
@@ -35,8 +40,8 @@ export default class App extends React.Component {
     render() {
         return (
             <View style={styles.formContainer}>
-                <ScrollView>
-                    <KeyboardAvoidingView behavior="padding" style={styles.formWrap}>
+                <KeyboardAvoidingView behavior="padding" style={styles.formWrap}>
+                    <ScrollView>
                         <View style={styles.content}>
                             <Text style={styles.caption}>Title</Text>
                             <TextInput
@@ -46,6 +51,7 @@ export default class App extends React.Component {
                                 placeholder="Car Insurance"
                                 placeholderTextColor="rgba(128, 128, 128, 0.7)"
                                 underlineColorAndroid='rgba(0,0,0,0)'
+                                onChangeText={(text) => this.setState({title: text})}
                             />
                             <Text style={styles.caption}>Description</Text>
                             <TextInput
@@ -55,6 +61,7 @@ export default class App extends React.Component {
                                 placeholder="Detaild description"
                                 placeholderTextColor="rgba(128, 128, 128, 0.7)"
                                 underlineColorAndroid='rgba(0,0,0,0)'
+                                onChangeText={(text) => this.setState({description: text})}
                             />
                             <Text style={styles.caption}>Date</Text>
                             <View style={styles.dateContainer}>
@@ -67,6 +74,7 @@ export default class App extends React.Component {
                                     maxLength = {2}
                                     placeholderTextColor="rgba(128, 128, 128, 0.7)"
                                     underlineColorAndroid='rgba(0,0,0,0)'
+                                    onChangeText={(text) => this.setState({dateDD: text})}
                                 />
                                 <TextInput
                                     onBlur={() => this.onBlur('mm')}
@@ -77,6 +85,7 @@ export default class App extends React.Component {
                                     maxLength = {2}
                                     placeholderTextColor="rgba(128, 128, 128, 0.7)"
                                     underlineColorAndroid='rgba(0,0,0,0)'
+                                    onChangeText={(text) => this.setState({dateMM: text})}
                                 />
                                 <TextInput
                                     onBlur={() => this.onBlur('yyyy')}
@@ -87,16 +96,21 @@ export default class App extends React.Component {
                                     maxLength = {4}
                                     placeholderTextColor="rgba(128, 128, 128, 0.7)"
                                     underlineColorAndroid='rgba(0,0,0,0)'
+                                    onChangeText={(text) => this.setState({dateYYYY: text})}
                                 />
                             </View>
                         </View>
-                    </KeyboardAvoidingView>
-                </ScrollView>
-                <TouchableOpacity style={styles.buttonContainer} onPress={this.saveData}>
-                    <Text style={styles.buttonText}>Save</Text>
-                </TouchableOpacity>
+                    </ScrollView>
+                    <TouchableOpacity style={styles.buttonContainer} onPress={this.saveData}>
+                        <Text style={styles.buttonText}>Save</Text>
+                    </TouchableOpacity>
+                </KeyboardAvoidingView>
             </View>
         );
+    }
+
+    saveData = () => {
+        this.props.navigation.navigate('ListScreen');
     }
 }
 

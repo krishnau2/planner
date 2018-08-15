@@ -5,7 +5,8 @@ import {
   View,
   SectionList,
   ScrollView,
-  TouchableOpacity 
+  TouchableOpacity,
+  AsyncStorage
 } from 'react-native';
 
 export default class List extends React.Component {
@@ -13,13 +14,25 @@ export default class List extends React.Component {
     title: 'Planner',    
   };
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      sectionData: []
+    }
+  }
+
+  componentDidMount() {
+    this.getAsyncData.call(this).then((data) => {
+      this.setState({sectionData: data});
+    });
+  }
+
   render() {
-    let sectionData = this.getSectionData();
     return (
         <View style={styles.listPageWrap}>
           <ScrollView>
             <SectionList
-              sections={sectionData}
+              sections={this.state.sectionData}
               renderItem={({item}) =>
                   <View style={styles.itemContainer}>
                     <Text style={styles.itemTitle}>{item.title}</Text>
@@ -45,217 +58,14 @@ export default class List extends React.Component {
     return dateObject.toString().split(' ')[2] + " - " +dateObject.toString().split(' ')[0];
   }
 
-  getSectionData() {
-    let data = [
-      {
-        month: "July-2018",
-        data: [
-            {
-              key: 1,
-              title: "TVM Visit",
-              description: "",
-              date: "2018-07-05",
-              repeats: true,
-              repeatEvery: 2,
-              notification: true,
-              notifyBefore: 2,
-              notifyBeforeType: "hours"
-            },
-            {
-              key: 2,
-              title: "Purchase BIKE",
-              description: "",
-              date: "2018-07-17",
-              repeats: true,
-              repeatEvery: 2,
-              notification: true,
-              notifyBefore: 2,
-              notifyBeforeType: "hours"
-            }
-        ],
-      },
-      {
-        month: "August-2018",
-        data: [
-            {
-              key: 3,
-              title: "Renew Car Pollution certificate this is a test string to check the width",
-              description: "",
-              date: "2018-08-03",
-              repeats: true,
-              repeatEvery: 2,
-              notification: true,
-              notifyBefore: 2,
-              notifyBeforeType: "hours"
-            },
-            {
-              key: 4,
-              title: "Naha's wedding",
-              description: "",
-              date: "2018-08-05",
-              repeats: true,
-              repeatEvery: 2,
-              notification: true,
-              notifyBefore: 2,
-              notifyBeforeType: "hours"
-            }
-        ]
-      },
-      {
-        month: "September-2018",
-        data: [
-            {
-              key: 5,
-              title: "Lechu's B'day",
-              description: "",
-              date: "2018-09-19",
-              repeats: true,
-              repeatEvery: 2,
-              notification: true,
-              notifyBefore: 2,
-              notifyBeforeType: "hours"
-            }
-        ]
-      },
-      {
-        month: "October-2018",
-        data: [
-          {
-            key: 1,
-            title: "TVM Visit",
-            description: "",
-            date: "2018-07-05",
-            repeats: true,
-            repeatEvery: 2,
-            notification: true,
-            notifyBefore: 2,
-            notifyBeforeType: "hours"
-          },
-          {
-            key: 2,
-            title: "Purchase BIKE",
-            description: "",
-            date: "2018-07-17",
-            repeats: true,
-            repeatEvery: 2,
-            notification: true,
-            notifyBefore: 2,
-            notifyBeforeType: "hours"
-          }
-        ],
-      },
-      {
-        month: "November-2018",
-        data: [
-          {
-            key: 1,
-            title: "TVM Visit",
-            description: "",
-            date: "2018-07-05",
-            repeats: true,
-            repeatEvery: 2,
-            notification: true,
-            notifyBefore: 2,
-            notifyBeforeType: "hours"
-          },
-          {
-            key: 2,
-            title: "Purchase BIKE",
-            description: "",
-            date: "2018-07-17",
-            repeats: true,
-            repeatEvery: 2,
-            notification: true,
-            notifyBefore: 2,
-            notifyBeforeType: "hours"
-          }
-        ],
-      },
-      {
-        month: "December-2018",
-        data: [
-          {
-            key: 1,
-            title: "TVM Visit",
-            description: "",
-            date: "2018-07-05",
-            repeats: true,
-            repeatEvery: 2,
-            notification: true,
-            notifyBefore: 2,
-            notifyBeforeType: "hours"
-          },
-          {
-            key: 2,
-            title: "Purchase BIKE",
-            description: "",
-            date: "2018-07-17",
-            repeats: true,
-            repeatEvery: 2,
-            notification: true,
-            notifyBefore: 2,
-            notifyBeforeType: "hours"
-          }
-        ],
-      },
-      {
-        month: "January-2019",
-        data: [
-          {
-            key: 1,
-            title: "TVM Visit",
-            description: "",
-            date: "2018-07-05",
-            repeats: true,
-            repeatEvery: 2,
-            notification: true,
-            notifyBefore: 2,
-            notifyBeforeType: "hours"
-          },
-          {
-            key: 2,
-            title: "Purchase BIKE",
-            description: "",
-            date: "2018-07-17",
-            repeats: true,
-            repeatEvery: 2,
-            notification: true,
-            notifyBefore: 2,
-            notifyBeforeType: "hours"
-          }
-        ],
-      },
-      {
-        month: "February-2018",
-        data: [
-          {
-            key: 1,
-            title: "TVM Visit",
-            description: "",
-            date: "2018-07-05",
-            repeats: true,
-            repeatEvery: 2,
-            notification: true,
-            notifyBefore: 2,
-            notifyBeforeType: "hours"
-          },
-          {
-            key: 2,
-            title: "Purchase BIKE",
-            description: "",
-            date: "2018-07-17",
-            repeats: true,
-            repeatEvery: 2,
-            notification: true,
-            notifyBefore: 2,
-            notifyBeforeType: "hours"
-          }
-        ],
-      },
-    ];
-
-    return data;
-  
+  async getAsyncData () {
+    try {
+      const result = await AsyncStorage.getItem("2018");
+      const item = JSON.parse(result);
+      return item;
+    } catch (error) {
+      console.log(error)
+    }
   }
 }
 

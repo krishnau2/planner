@@ -7,7 +7,8 @@ import {
   StatusBar, 
   SectionList,
   ScrollView,
-  TouchableOpacity 
+  TouchableOpacity,
+  AsyncStorage
 } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import List from './screens/List';
@@ -19,7 +20,7 @@ const AppNavigator = StackNavigator(
     FormScreen: { screen: Form }
   },
   {
-    initialRouteName: 'FormScreen',
+    initialRouteName: 'ListScreen',
     navigationOptions: {      
       headerTintColor: '#ef586b',
       headerTitleStyle: {      
@@ -32,6 +33,11 @@ const AppNavigator = StackNavigator(
 );
 
 export default class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.storeData();
+  }
+
   render() {    
     return (      
       <View style={styles.container}>
@@ -39,6 +45,91 @@ export default class App extends React.Component {
         <AppNavigator></AppNavigator>
     </View>
     );
+  }
+
+  storeData() {
+    let newData = [
+      {
+        month: "july",
+        data: [
+          {
+            key: 1,
+            title: "TVM Visist",
+            description: "",
+            date: "2018-07-05",
+          },
+          {
+            key: 2,
+            title: "Purchase Bike",
+            description: "",
+            date: "2018-07-16",
+          }
+        ]
+      },
+      {
+        month: "august",
+        data: [
+          {
+            key: 3,
+            title: "Renew Car Pollution certificate this is a test string to check the width",
+            description: "",
+            date: "2018-08-03",
+          },
+          {
+            key: 4,
+            title: "Naha's wedding",
+            description: "",
+            date: "2018-08-05",
+          }
+        ]
+      },
+      {
+        month: "september",
+        data: [
+            {
+              key: 5,
+              title: "Lechu's B'day",
+              description: "",
+              date: "2018-09-19",
+            }
+        ]
+      },
+      {
+        month: "november",
+        data: [
+          {
+            key: 6,
+            title: "TVM Visist",
+            description: "",
+            date: "2018-11-05",
+          },
+          {
+            key: 7,
+            title: "Purchase Bike",
+            description: "",
+            date: "2018-11-16",
+          }
+        ]
+      },
+      {
+        month: "December",
+        data: [
+          {
+            key: 1,
+            title: "TVM Visist",
+            description: "",
+            date: "2018-12-05",
+          },
+          {
+            key: 2,
+            title: "Xmas",
+            description: "",
+            date: "2018-12-25",
+          }
+        ]
+      },
+    ]
+    AsyncStorage.setItem("2018", JSON.stringify(newData));
   }
 }
 

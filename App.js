@@ -1,18 +1,16 @@
 import React from 'react';
 import { 
-  StyleSheet, 
-  Text, 
+  StyleSheet,
   View, 
   Platform, 
-  StatusBar, 
-  SectionList,
-  ScrollView,
-  TouchableOpacity,
+  StatusBar,
   AsyncStorage
 } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import List from './screens/List';
 import Form from './screens/Form';
+
+const CURRENT_YEAR = '2018';
 
 const AppNavigator = StackNavigator(
   {
@@ -35,121 +33,62 @@ const AppNavigator = StackNavigator(
 export default class App extends React.Component {
   constructor(props) {
     super(props);
+    this.initializeAsyncStorage();
     // this.clearData();
-    // this.storeData();
   }
 
   render() {    
     return (      
-      <View style={styles.container}>
-        {Platform.OS === 'ios' && <StatusBar barStyle="default" />}        
-        <AppNavigator></AppNavigator>
-    </View>
+        <View style={styles.container}>
+            {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
+            <AppNavigator></AppNavigator>
+        </View>
     );
   }
 
-  clearData() {
-    AsyncStorage.setItem("2018", JSON.stringify([]));
+  initializeAsyncStorage() {
+    this.getAsyncData('initialized').then((data) => {
+      if(data && data === true){
+        // Don't overwrite the async data
+      }else{
+        // Initialize Year, month - empty data
+        AsyncStorage.setItem("initialized", JSON.stringify(true));
+        AsyncStorage.setItem(CURRENT_YEAR, JSON.stringify(this.generateInitialData()));
+      }
+    });
   }
 
-  storeData() {
-    let newData = [
-      {
-        month: "07",
-        data: [
-          {
-            key: 1,
-            title: "TVM Visist",
-            description: "",
-            date: "2018-07-05",
-          },
-          {
-            key: 2,
-            title: "Purchase Bike",
-            description: "",
-            date: "2018-07-16",
-          }
-        ]
-      },
-      {
-        month: "08",
-        data: [
-          {
-            key: 3,
-            title: "Renew Car Pollution certificate this is a test string to check the width",
-            description: "",
-            date: "2018-08-03",
-          },
-          {
-            key: 4,
-            title: "Naha's wedding",
-            description: "",
-            date: "2018-08-05",
-          }
-        ]
-      },
-      {
-        month: "09",
-        data: [
-            {
-              key: 5,
-              title: "Lechu's B'day",
-              description: "",
-              date: "2018-09-19",
-            }
-        ]
-      },
-      {
-          month: "10",
-          data: []
-      },
-      {
-        month: "11",
-        data: [
-          {
-            key: 6,
-            title: "TVM Visist",
-            description: "",
-            date: "2018-11-05",
-          },
-          {
-            key: 7,
-            title: "Purchase Bike",
-            description: "",
-            date: "2018-11-16",
-          }
-        ]
-      },
-      {
-        month: "12",
-        data: [
-          {
-            key: 1,
-            title: "TVM Visist",
-            description: "",
-            date: "2018-12-05",
-          },
-          {
-            key: 2,
-            title: "Xmas",
-            description: "",
-            date: "2018-12-25",
-          }
-        ]
-      },
-    ]
-    AsyncStorage.setItem("2018", JSON.stringify(newData));
+  generateInitialData() {
+    let initialData = [];
+    for(var i = 1; i <= 12; i++){
+      initialData.push({
+        month: i < 10 ? '0'+i : ''+i ,
+        data: []
+      });
+    }
+    return initialData;
   }
+
+  clearData() {
+    AsyncStorage.setItem(CURRENT_YEAR, JSON.stringify([]));
+  }
+
+  async getAsyncData (asyncKey) {
+    try {
+      const result = await AsyncStorage.getItem(asyncKey);
+      const item = JSON.parse(result);
+      return item;
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff'
-    // marginTop: 20
-    // backgroundColor: '#fff',
-    // alignItems: 'center',
-    // justifyContent: 'center',
   },
   logoContainer: {
     alignItems: 'center',

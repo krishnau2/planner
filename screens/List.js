@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   AsyncStorage
 } from 'react-native';
-
+import Swipeout from 'react-native-swipeout';
 export default class List extends React.Component {
   static navigationOptions = {
     title: 'Planner',    
@@ -27,6 +27,48 @@ export default class List extends React.Component {
     });
   }
 
+  getMonth = (dateString) => {
+    let date = new Date(dateString);
+    return ("0" + (date.getMonth() + 1)).slice(-2);
+  }
+
+  remove(item) {
+    console.log(item);
+    this.setState(prevState => ({
+      sectionData: prevState.sectionData.map((section) => {
+        if(section.month === this.getMonth(item.date)){
+          section.data = section.data.filter(row => row.key !== item.key)
+        }
+        return section;
+      })
+    }));
+    setTimeout(() => {
+      AsyncStorage.setItem("2018", JSON.stringify(this.state.sectionData));
+    }, 2000);
+    
+  }
+
+  renderRow(item) {
+    var swipeoutBtns = [
+      {
+        text: 'Remove',
+        backgroundColor: 'red',
+        onPress: () => {this.remove(item)}
+      }
+    ];
+
+    return(
+      <Swipeout right={swipeoutBtns}
+        autoClose = {true}
+        backgroundColor= 'transparent'>
+        <View style={styles.itemContainer}>
+          <Text style={styles.itemTitle}>{item.title}</Text>
+          <Text style={styles.itemDate}>{this.getFormatedDate(item.date)}</Text>
+        </View>
+      </Swipeout>
+    )
+  }
+
   render() {
     return (
         <View style={styles.listPageWrap}>
@@ -34,10 +76,8 @@ export default class List extends React.Component {
             <SectionList
               sections={this.state.sectionData}
               renderItem={({item}) =>
-                  <View style={styles.itemContainer}>
-                    <Text style={styles.itemTitle}>{item.title}</Text>
-                    <Text style={styles.itemDate}>{this.getFormatedDate(item.date)}</Text>
-                  </View>}
+                (this.renderRow(item))
+              }
               renderSectionHeader={({section}) =>
                   <Text style={styles.sectionHeader}>{this.getMonthName(section.month)}</Text>}
             />

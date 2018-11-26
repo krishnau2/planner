@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   AsyncStorage
 } from 'react-native';
+import DatePicker from 'react-native-datepicker'
 
 export default class App extends React.Component {
     static navigationOptions = {
@@ -27,7 +28,8 @@ export default class App extends React.Component {
             description: "",
             dateDD: "",
             dateMM: "",
-            dateYYYY: ""
+            dateYYYY: "",
+            date: "2018-11-18"
         };
     }
 
@@ -66,38 +68,28 @@ export default class App extends React.Component {
                             />
                             <Text style={styles.caption}>Date</Text>
                             <View style={styles.dateContainer}>
-                                <TextInput
-                                    onBlur={() => this.onBlur('dd')}
-                                    onFocus={() => this.onFocus('dd')}
-                                    style={[styles.inputBox, styles.inputDD, this.state.ddStyle]}
-                                    placeholder="DD"
-                                    keyboardType="numeric"
-                                    maxLength = {2}
-                                    placeholderTextColor="rgba(128, 128, 128, 0.7)"
-                                    underlineColorAndroid='rgba(0,0,0,0)'
-                                    onChangeText={(text) => this.setState({dateDD: text})}
-                                />
-                                <TextInput
-                                    onBlur={() => this.onBlur('mm')}
-                                    onFocus={() => this.onFocus('mm')}
-                                    style={[styles.inputBox, styles.inputMM, this.state.mmStyle]}
-                                    placeholder="MM"
-                                    keyboardType="numeric"
-                                    maxLength = {2}
-                                    placeholderTextColor="rgba(128, 128, 128, 0.7)"
-                                    underlineColorAndroid='rgba(0,0,0,0)'
-                                    onChangeText={(text) => this.setState({dateMM: text})}
-                                />
-                                <TextInput
-                                    onBlur={() => this.onBlur('yyyy')}
-                                    onFocus={() => this.onFocus('yyyy')}
-                                    style={[styles.inputBox, styles.inputYYYY, this.state.yyyyStyle]}
-                                    placeholder="YYYY"
-                                    keyboardType="numeric"
-                                    maxLength = {4}
-                                    placeholderTextColor="rgba(128, 128, 128, 0.7)"
-                                    underlineColorAndroid='rgba(0,0,0,0)'
-                                    onChangeText={(text) => this.setState({dateYYYY: text})}
+                                <DatePicker
+                                    style={{width: 300}}
+                                    date={this.state.date}
+                                    mode="date"
+                                    placeholder="select date"
+                                    format="YYYY-MM-DD"
+                                    minDate="2017-01-01"
+                                    confirmBtnText="Confirm"
+                                    cancelBtnText="Cancel"
+                                    customStyles={{
+                                        dateIcon: {
+                                            position: 'absolute',
+                                            left: 250,
+                                            top: 4,
+                                            marginLeft: 0
+                                        },
+                                        dateInput: {
+                                            marginLeft: 0
+                                        }
+                                    // ... You can check the source to find the other keys.
+                                    }}
+                                    onDateChange={(date) => {this.setState({date: date})}}
                                 />
                             </View>
                         </View>
@@ -110,43 +102,49 @@ export default class App extends React.Component {
         );
     }
 
+    getMonth = (dateString) => {
+        let date = new Date(dateString);
+        return ("0" + (date.getMonth() + 1)).slice(-2);
+    }
+
     saveData = () => {
-        let newMonth = true;
+        let newMonth = true,
+            month = this.getMonth(this.state.date);
         this.getAsyncData.call(this, "2018").then((data) => {
             let existingData = data;
             if(existingData.length === 0){
                 existingData.push({
-                    month: this.state.dateMM,
+                    month: month,
                     data: [
                         {
                             key: new Date().getTime(),
                             title: this.state.title,
                             description: this.state.description,
-                            date: this.state.dateYYYY + "-" + this.state.dateMM + "-" + this.state.dateDD,
+                            date: this.state.date,
                         }
                     ]
                 });
             }else{
                 existingData.forEach((item) => {
-                    if(item.month == this.state.dateMM ){
+                    if(item.month == month ){
                         newMonth = false;
                         item.data.push({
                             key: new Date().getTime(),
                             title: this.state.title,
                             description: this.state.description,
-                            date: this.state.dateYYYY + "-" + this.state.dateMM + "-" + this.state.dateDD,
+                            date: this.state.date,
                         })
                     }
                 });
                 if(newMonth){
                     existingData.push({
-                        month: this.state.dateMM,
+                        month: month,
                         data: [
                             {
                                 key: new Date().getTime(),
                                 title: this.state.title,
                                 description: this.state.description,
-                                date: this.state.dateYYYY + "-" + this.state.dateMM + "-" + this.state.dateDD,
+                                date: this.state.date,
                             }
                         ]
                     })

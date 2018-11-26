@@ -29,6 +29,7 @@ export const InitializeAppData = () => {
     readAsyncData('initialized').then((data) => {
         if(data && data === true){
             // Don't overwrite the async data
+            return;
         }else{
             // Initialize Year, month - empty data
             AsyncStorage.setItem("initialized", JSON.stringify(true));

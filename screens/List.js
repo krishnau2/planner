@@ -9,6 +9,7 @@ import {
   AsyncStorage
 } from 'react-native';
 import Swipeout from 'react-native-swipeout';
+import {APP_DATA_KEY} from "../constants/appConstants"
 export default class List extends React.Component {
   static navigationOptions = {
     title: 'Planner',    
@@ -22,7 +23,7 @@ export default class List extends React.Component {
   }
 
   componentDidMount() {
-    this.getAsyncData.call(this, "2018").then((data) => {
+    this.getAsyncData.call(this, APP_DATA_KEY).then((data) => {
       this.setState({sectionData: data});
     });
   }
@@ -32,18 +33,23 @@ export default class List extends React.Component {
     return ("0" + (date.getMonth() + 1)).slice(-2);
   }
 
+  getYear = (dateString) => {
+    let date = new Date(dateString);
+    return date.getFullYear();
+  }
+
   remove(item) {
     console.log(item);
     this.setState(prevState => ({
       sectionData: prevState.sectionData.map((section) => {
-        if(section.month === this.getMonth(item.date)){
+        if(section.month === this.getMonth(item.date) && section.year === this.getYear(item.date)){
           section.data = section.data.filter(row => row.key !== item.key)
         }
         return section;
       })
     }));
     setTimeout(() => {
-      AsyncStorage.setItem("2018", JSON.stringify(this.state.sectionData));
+      AsyncStorage.setItem(APP_DATA_KEY, JSON.stringify(this.state.sectionData));
     }, 2000);
     
   }
@@ -79,7 +85,9 @@ export default class List extends React.Component {
                 (this.renderRow(item))
               }
               renderSectionHeader={({section}) =>
-                  <Text style={styles.sectionHeader}>{this.getMonthName(section.month)}</Text>}
+                  <Text style={styles.sectionHeader}>
+                    {this.getMonthName(section.month)}-{section.year}
+                  </Text>}
             />
           </ScrollView>
           <TouchableOpacity style={styles.buttonContainer} onPress={this.navigateToFormPage}>
@@ -96,7 +104,7 @@ export default class List extends React.Component {
   }
 
   refreshList = () => {
-    this.getAsyncData.call(this, "2018").then((data) => {
+    this.getAsyncData.call(this, APP_DATA_KEY).then((data) => {
       this.setState({sectionData: data});
     });
   }

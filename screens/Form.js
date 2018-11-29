@@ -9,7 +9,8 @@ import {
   TouchableOpacity,
   AsyncStorage
 } from 'react-native';
-import DatePicker from 'react-native-datepicker'
+import DatePicker from 'react-native-datepicker';
+import {APP_DATA_KEY} from "../constants/appConstants"
 
 export default class App extends React.Component {
     static navigationOptions = {
@@ -107,14 +108,21 @@ export default class App extends React.Component {
         return ("0" + (date.getMonth() + 1)).slice(-2);
     }
 
+    getYear = (dateString) => {
+        let date = new Date(dateString);
+        return date.getFullYear();
+    }
+
     saveData = () => {
         let newMonth = true,
-            month = this.getMonth(this.state.date);
-        this.getAsyncData.call(this, "2018").then((data) => {
+            month = this.getMonth(this.state.date),
+            year = this.getYear(this.state.date);
+        this.getAsyncData.call(this, APP_DATA_KEY).then((data) => {
             let existingData = data;
-            if(existingData.length === 0){
+            if(existingData.length === 0){ // Really doubt ever this will get execute? because of AppInitializer
                 existingData.push({
                     month: month,
+                    year: year,
                     data: [
                         {
                             key: new Date().getTime(),
@@ -126,7 +134,7 @@ export default class App extends React.Component {
                 });
             }else{
                 existingData.forEach((item) => {
-                    if(item.month == month ){
+                    if(item.month === month && item.year === year){
                         newMonth = false;
                         item.data.push({
                             key: new Date().getTime(),
@@ -139,6 +147,7 @@ export default class App extends React.Component {
                 if(newMonth){
                     existingData.push({
                         month: month,
+                        year: year,
                         data: [
                             {
                                 key: new Date().getTime(),
@@ -150,7 +159,7 @@ export default class App extends React.Component {
                     })
                 }
             }
-            AsyncStorage.setItem("2018", JSON.stringify(existingData));
+            AsyncStorage.setItem(APP_DATA_KEY, JSON.stringify(existingData));
             this.props.navigation.state.params.onGoBack();
             this.props.navigation.goBack();
         });

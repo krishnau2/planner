@@ -1,8 +1,7 @@
 import {
   AsyncStorage
 } from 'react-native';
-
-const CURRENT_YEAR = '2018';
+import {APP_DATA_KEY} from "./constants/appConstants"
 
 async function readAsyncData (asyncKey) {
     try {
@@ -19,6 +18,7 @@ function generateInitialData() {
     for(var i = 1; i <= 12; i++){
         initialData.push({
             month: i < 10 ? '0'+i : ''+i ,
+            year: new Date().getFullYear(),
             data: []
         });
     }
@@ -28,12 +28,12 @@ function generateInitialData() {
 export const InitializeAppData = () => {
     readAsyncData('initialized').then((data) => {
         if(data && data === true){
-            // Don't overwrite the async data
+            // Initialization is done, don't overwrite the async data
             return;
         }else{
             // Initialize Year, month - empty data
             AsyncStorage.setItem("initialized", JSON.stringify(true));
-            AsyncStorage.setItem(CURRENT_YEAR, JSON.stringify(generateInitialData()));
+            AsyncStorage.setItem(APP_DATA_KEY, JSON.stringify(generateInitialData()));
         }
     });
 }

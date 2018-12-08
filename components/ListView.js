@@ -6,6 +6,7 @@ import {
     SectionList,
 } from 'react-native';
 import Swipeout from 'react-native-swipeout';
+import {DateFormater} from "../Utils/appUtils"
 
 export default class ListView extends React.Component {
     constructor(props){
@@ -35,16 +36,16 @@ export default class ListView extends React.Component {
             <SectionList
                 stickySectionHeadersEnabled={true}
                 sections={
-                [{title: monthData.month, data: monthData.data}]
+                    [{month: monthData.month, data: monthData.data}]
                 }
                 renderSectionHeader={({section}) =>
                 (section.data.length > 0 ? 
                     <Text style={styles.monthSectionHeader}>
-                    {this.getMonthName(section.title)}
+                        {DateFormater.monthName(section.month)}
                     </Text>
                 :
                     <Text style={styles.emptySectionHeader}>
-                    {this.getMonthName(section.title)}
+                        {DateFormater.monthName(section.month)}
                     </Text>  
                 )
                 }
@@ -72,20 +73,12 @@ export default class ListView extends React.Component {
             >
                 <View style={styles.itemContainer} >
                 <Text style={styles.itemTitle}>{item.title}</Text>
-                <Text style={styles.itemDate}>{this.getFormatedDate(item.date)}</Text>
+                <Text style={styles.itemDate}>
+                    {DateFormater.date(item.date)} - {DateFormater.day(item.date)}
+                </Text>
                 </View>
             </Swipeout>
         )
-    }
-
-    getMonthName(month) {
-        let monthsName = ["January","February","March","April","May","June","July", "August","September","October","November","December"];
-        return monthsName[parseInt(month)-1];
-    }
-
-    getFormatedDate(date) {
-        let dateObject = new Date(date);
-        return dateObject.toString().split(' ')[2] + " - " +dateObject.toString().split(' ')[0];
     }
 }
 

@@ -9,6 +9,7 @@ import {APP_DATA_KEY} from "../constants/appConstants"
 import {appData} from "../data"
 import ListView from '../components/ListView';
 import {AddNewButton} from "../components/AddNewButton"
+import {DateFormater} from "../Utils/appUtils"
 export default class List extends React.Component {
   static navigationOptions = {
     title: 'Planner',    
@@ -28,23 +29,12 @@ export default class List extends React.Component {
     this.setState({sectionData: appData});
   }
 
-  getMonth = (dateString) => {
-    let date = new Date(dateString);
-    return ("0" + (date.getMonth() + 1)).slice(-2);
-  }
-
-  getYear = (dateString) => {
-    let date = new Date(dateString);
-    return date.getFullYear();
-  }
-
   remove(item) {
-    console.log(item);
     this.setState(prevState => ({
       sectionData: prevState.sectionData.map((yearSection) => {
-        if(yearSection.year === this.getYear(item.date)){
+        if(yearSection.year === DateFormater.year(item.date)){
           yearSection.data.map((monthSection) => {
-            if(monthSection.month === this.getMonth(item.date)){
+            if(monthSection.month === DateFormater.month(item.date)){
               monthSection.data = monthSection.data.filter(row => row.key !== item.key)
             }
           });

@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import DatePicker from 'react-native-datepicker';
 import {APP_DATA_KEY} from "../constants/appConstants"
+import {DateFormater} from "../Utils/appUtils"
 
 export default class App extends React.Component {
     static navigationOptions = {
@@ -22,14 +23,8 @@ export default class App extends React.Component {
         this.state = {
             titleStyle: styles.textinput_unfocused,
             descriptionStyle: styles.textinput_unfocused,
-            ddStyle: styles.textinput_unfocused,
-            mmStyle: styles.textinput_unfocused,
-            yyyyStyle: styles.textinput_unfocused,
             title: "",
             description: "",
-            dateDD: "",
-            dateMM: "",
-            dateYYYY: "",
             date: "2018-11-18"
         };
     }
@@ -103,20 +98,10 @@ export default class App extends React.Component {
         );
     }
 
-    getMonth = (dateString) => {
-        let date = new Date(dateString);
-        return ("0" + (date.getMonth() + 1)).slice(-2);
-    }
-
-    getYear = (dateString) => {
-        let date = new Date(dateString);
-        return date.getFullYear();
-    }
-
     saveData = () => {
         let newMonth = true,
-            month = this.getMonth(this.state.date),
-            year = this.getYear(this.state.date);
+            month = DateFormater.month(this.state.date),
+            year = DateFormater.year(this.state.date);
         this.getAsyncData.call(this, APP_DATA_KEY).then((data) => {
             let existingData = data;
             if(existingData.length === 0){ // Really doubt ever this will get execute? because of AppInitializer

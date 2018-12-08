@@ -1,6 +1,6 @@
 import { StackNavigator } from 'react-navigation';
 import {
-    APP_COLOR,
+    APP_HEADER_TITLE_COLOR,
     APP_HEADER_COLOR
 } from './constants/appConstants';
 import List from './screens/List';
@@ -14,14 +14,14 @@ export const AppNavigator = StackNavigator(
     {
       initialRouteName: 'ListScreen',
       navigationOptions: {      
-        headerTintColor: APP_COLOR,
+        headerTintColor: APP_HEADER_TITLE_COLOR,
         headerStyle: {
           backgroundColor: APP_HEADER_COLOR,
         },
         headerTitleStyle: {      
           fontSize: 22,
           fontWeight: 'bold',
-          color: "#fff",
+          color: APP_HEADER_TITLE_COLOR,
         },
       },
     }

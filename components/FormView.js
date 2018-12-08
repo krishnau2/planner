@@ -212,7 +212,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 4,
         // borderColor: '#d6d7da',
-        fontSize: 14,
+        fontSize: 18,
         paddingTop: 4,
         paddingBottom: 4,
         paddingLeft: 5,
@@ -225,15 +225,6 @@ const styles = StyleSheet.create({
     textinput_unfocused: {
         borderColor: '#d6d7da',
     },
-    inputDD: {
-        width: 40,
-    },
-    inputMM: {
-        width: 40,
-    },
-    inputYYYY: {
-        width: 70,
-    },
     dateContainer: {
         flexDirection: 'row',
         justifyContent: 'space-evenly',
@@ -244,10 +235,12 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
     },
     buttonText: {
-        fontSize: 18,
+        fontSize: 22,
         fontWeight: 'bold',
         textAlign: 'center',
         color: '#FFF',
-        fontWeight: '700'
+        fontWeight: '700',
+        paddingTop: 5,
+        paddingBottom: 5
     }
 });

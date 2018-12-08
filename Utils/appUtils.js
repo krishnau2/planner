@@ -1,7 +1,7 @@
 export const DateFormater = {
     date: (dateString) => {
         let date = new Date(dateString);
-        return ("0" + (date.getDate() + 1)).slice(-2);
+        return ("0" + (date.getDate())).slice(-2);
     },
     day: (dateString) => {
         let date = new Date(dateString);
@@ -23,5 +23,12 @@ export const DateFormater = {
                 "October","November","December"
             ];
         return monthsName[parseInt(monthNumber)-1];
+    },
+    today: () => {
+        let today = new Date(),
+        date = ("0" + (today.getDate())).slice(-2),
+        month = ("0" + (today.getMonth() + 1)).slice(-2),
+        year = today.getFullYear();
+        return (year + "-" + month + "-" + date);
     }
 }

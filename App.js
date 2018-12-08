@@ -14,7 +14,7 @@ const CURRENT_YEAR = '2018';
 export default class App extends React.Component {
   constructor(props) {
     super(props);
-    // InitializeAppData();
+    InitializeAppData();
     // this.clearData();
   }
 

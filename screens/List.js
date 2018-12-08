@@ -6,7 +6,7 @@ import {
 } from 'react-native';
 import Swipeout from 'react-native-swipeout';
 import {APP_DATA_KEY} from "../constants/appConstants"
-import {appData} from "../data"
+// import {appData} from "../data"
 import ListView from '../components/ListView';
 import {AddNewButton} from "../components/AddNewButton"
 import {DateFormater} from "../Utils/appUtils"
@@ -23,10 +23,10 @@ export default class List extends React.Component {
   }
 
   componentDidMount() {
-    // this.getAsyncData.call(this, APP_DATA_KEY).then((data) => {
-    //   this.setState({sectionData: data});
-    // });
-    this.setState({sectionData: appData});
+    this.getAsyncData.call(this, APP_DATA_KEY).then((data) => {
+      this.setState({sectionData: data});
+    });
+    // this.setState({sectionData: appData});
   }
 
   remove(item) {
@@ -43,9 +43,9 @@ export default class List extends React.Component {
       })
     }));
     
-    // setTimeout(() => {
-    //   AsyncStorage.setItem(APP_DATA_KEY, JSON.stringify(this.state.sectionData));
-    // }, 2000);
+    setTimeout(() => {
+      AsyncStorage.setItem(APP_DATA_KEY, JSON.stringify(this.state.sectionData));
+    }, 2000);
     
   }
 

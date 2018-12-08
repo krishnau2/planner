@@ -14,15 +14,28 @@ async function readAsyncData (asyncKey) {
 }
 
 function generateInitialData() {
-    let initialData = [];
+    let initialData = [], currentYearData = {};
+
+    // Initializing with current year empty data.
+    currentYearData = {
+        year: new Date().getFullYear(),
+        key: new Date().getTime(),
+        data: []
+    }
+
+    // Initializing empty month data in current year data.
     for(var i = 1; i <= 12; i++){
-        initialData.push({
+        currentYearData.data.push({
             month: i < 10 ? '0'+i : ''+i ,
-            year: new Date().getFullYear(),
             data: []
         });
     }
+    initialData.push(currentYearData);
     return initialData;
+}
+
+function generateInitialActiveYearsData() {
+    return([new Date().getFullYear()]);
 }
 
 export const InitializeAppData = () => {
@@ -32,8 +45,9 @@ export const InitializeAppData = () => {
             return;
         }else{
             // Initialize Year, month - empty data
-            AsyncStorage.setItem("initialized", JSON.stringify(true));
             AsyncStorage.setItem(APP_DATA_KEY, JSON.stringify(generateInitialData()));
+            AsyncStorage.setItem("activeYears", JSON.stringify(generateInitialActiveYearsData()));
+            AsyncStorage.setItem("initialized", JSON.stringify(true));
         }
     });
 }
